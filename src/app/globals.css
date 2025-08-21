@@ -28,12 +28,13 @@ body {
 
 /* Auto-added button styling */
 .btn, button, .button, .deploy-button, .docs-button {
-  background-color: #ffcc00;
-  background-color: #ffcc00;
-  background-color: #ffcc00;
-  background-color: #ffcc00;
-  background-color: #ffcc00;
-  background-color: #ffcc00;
+  background-color: #dc3545;
+  background-color: #dc3545;
+  background-color: #dc3545;
+  background-color: #dc3545;
+  background-color: #dc3545;
+  background-color: #dc3545;
+  background-color: #dc3545;
   color: #000 !important;
   border: none;
   padding: 10px 20px;
