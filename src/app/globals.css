@@ -28,9 +28,12 @@ body {
 
 /* Auto-added button styling */
 .btn, button, .button, .deploy-button, .docs-button {
-  background-color: #007bff;
-  background-color: #007bff;
-  background-color: #007bff;
+  background-color: #ffcc00;
+  background-color: #ffcc00;
+  background-color: #ffcc00;
+  background-color: #ffcc00;
+  background-color: #ffcc00;
+  background-color: #ffcc00;
   color: #000 !important;
   border: none;
   padding: 10px 20px;
