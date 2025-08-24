@@ -1,8 +1,44 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Container Next Repo
+
+A modern web application built with [Next.js](https://nextjs.org) 15, React 19, and Tailwind CSS 4. This project provides a clean starting point for building scalable web applications with the latest Next.js features including Turbopack for faster development builds.
+
+## Features
+
+- ⚡️ Next.js 15 with App Router
+- ⚛️ React 19 with latest features
+- 🎨 Tailwind CSS 4 for styling
+- 🚀 Turbopack for fast development builds
+- 📝 TypeScript for type safety
+- 🧹 ESLint for code quality
+
+## Prerequisites
+
+Before you begin, ensure you have the following installed:
+- Node.js (version 18 or higher)
+- npm, yarn, pnpm, or bun package manager
+
+## Installation
+
+1. Clone the repository:
+```bash
+git clone <repository-url>
+cd container-next-repo
+```
+
+2. Install dependencies:
+```bash
+npm install
+# or
+yarn install
+# or
+pnpm install
+# or
+bun install
+```
 
 ## Getting Started
 
-First, run the development server:
+Start the development server:
 
 ```bash
 npm run dev
