@@ -1,24 +1,66 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Container Next Repo
 
-## Getting Started
+A modern Next.js application built with React 19 and Next.js 15, featuring Tailwind CSS for styling and TypeScript for type safety. This project serves as a containerized Next.js starter template with the latest web development technologies.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Next.js 15** with App Router and Turbopack for lightning-fast development
+- **React 19** for modern React features
+- **TypeScript** for type safety and better developer experience
+- **Tailwind CSS v4** for utility-first styling
+- **ESLint** for code quality and consistency
+- **Optimized fonts** with next/font and Geist font family
+- **Container-ready** architecture for deployment
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Installation
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Prerequisites
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Make sure you have Node.js installed on your system. This project requires Node.js 18 or higher.
+
+### Setup
+
+1. **Clone the repository:**
+   ```bash
+   git clone <repository-url>
+   cd container-next-repo
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   npm install
+   # or
+   yarn install
+   # or
+   pnpm install
+   # or
+   bun install
+   ```
+
+3. **Start the development server:**
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   # or
+   pnpm dev
+   # or
+   bun dev
+   ```
+
+4. **Open your browser:**
+   Navigate to [http://localhost:3000](http://localhost:3000) to see the application.
+
+## Development
+
+You can start editing the application by modifying `src/app/page.tsx`. The page auto-updates as you edit the file thanks to hot reloading.
+
+### Available Scripts
+
+- `npm run dev` - Starts the development server with Turbopack
+- `npm run build` - Builds the application for production with Turbopack
+- `npm run start` - Starts the production server
+- `npm run lint` - Runs ESLint for code quality checks
 
 ## Learn More
 
