@@ -39,16 +39,6 @@ export interface BuyCoinWithSolParams {
   referral?: PublicKey;
 }
 
-export interface SellCoinParams {
-  mint: PublicKey;
-  marketCapIndex: number;
-  tokenAmount: number; // Changed from BN to number
-  slippage?: number;
-  creator: PublicKey;
-  referralFee?: number;
-  referral?: PublicKey;
-}
-
 export interface PumpClientConfig {
   rpcUrl?: string;
   commitment?: 'processed' | 'confirmed' | 'finalized';
@@ -115,8 +105,7 @@ class PumpClientWrapper {
       // Return a mock client to prevent app crashes
       this._client = {
         createCoin: () => Promise.reject(new Error(`SDK unavailable: ${errorMessage}`)),
-        buyCoinWithSol: () => Promise.reject(new Error(`SDK unavailable: ${errorMessage}`)),
-        sellCoin: () => Promise.reject(new Error(`SDK unavailable: ${errorMessage}`))
+        buyCoinWithSol: () => Promise.reject(new Error(`SDK unavailable: ${errorMessage}`))
       };
       this._initialized = true;
       return this._client;
@@ -157,12 +146,6 @@ class PumpClientWrapper {
     const client = await this.ensureClient();
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return await (client as any).buyCoinWithSol(params);
-  }
-
-  async sellCoin(params: SellCoinParams): Promise<VersionedTransaction> {
-    const client = await this.ensureClient();
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return await (client as any).sellCoin(params);
   }
 
   async getGlobalAccount() {

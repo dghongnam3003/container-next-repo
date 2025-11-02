@@ -7,7 +7,6 @@ import {
   PumpClient,
   type CreateCoinParams, 
   type BuyCoinParams, 
-  type SellCoinParams, 
   type BuyCoinWithSolParams 
 } from '@/lib/gemsfunClient';
 
@@ -20,7 +19,6 @@ interface UseGemsfunActionsReturn {
   createCoin: (params: Omit<CreateCoinParams, 'marketCapIndex'>) => Promise<{ mint: string; creator: string; signature: string }>;
   buyCoinWithSol: (params: Omit<BuyCoinWithSolParams, 'mint' | 'creator'>) => Promise<string>;
   buyCoin: (params: Omit<BuyCoinParams, 'mint' | 'creator'>) => Promise<string>;
-  sellCoin: (params: Omit<SellCoinParams, 'mint' | 'creator'>) => Promise<string>;
   setCurrentToken: (mint: string, creator: string) => void;
   clearError: () => void;
 }
@@ -170,45 +168,6 @@ export function useGemsfunActions(): UseGemsfunActionsReturn {
     }
   }, [client, currentMint, currentCreator, wallet, connection]);
 
-  const sellCoin = useCallback(async (params: Omit<SellCoinParams, 'mint' | 'creator'>) => {
-    if (!client || !currentMint || !currentCreator || !wallet.signTransaction) {
-      throw new Error('No coin selected or wallet not connected');
-    }
-    
-    setIsLoading(true);
-    setError(null);
-    
-    try {
-      const tx = await client.sellCoin({
-        ...params,
-        mint: new PublicKey(currentMint),
-        creator: new PublicKey(currentCreator),
-        marketCapIndex: 1
-      });
-      
-      // Simulate transaction first
-      const simulation = await client.simulateTransaction(tx);
-      if (!simulation.success) {
-        throw new Error(`Transaction simulation failed: ${simulation.error}`);
-      }
-      
-      const signedTx = await wallet.signTransaction(tx);
-      const signature = await connection.sendRawTransaction(signedTx.serialize(), {
-        skipPreflight: true,
-        maxRetries: 3
-      });
-      
-      await connection.confirmTransaction(signature, 'confirmed');
-      return signature;
-    } catch (err) {
-      const errorMsg = err instanceof Error ? err.message : 'Failed to sell coin';
-      setError(errorMsg);
-      throw err;
-    } finally {
-      setIsLoading(false);
-    }
-  }, [client, currentMint, currentCreator, wallet, connection]);
-
   const setCurrentToken = useCallback((mint: string, creator: string) => {
     setCurrentMint(mint);
     setCurrentCreator(creator);
@@ -228,7 +187,6 @@ export function useGemsfunActions(): UseGemsfunActionsReturn {
     createCoin,
     buyCoinWithSol,
     buyCoin,
-    sellCoin,
     setCurrentToken,
     clearError
   };

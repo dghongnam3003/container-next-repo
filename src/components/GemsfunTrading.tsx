@@ -15,7 +15,6 @@ export default function GemsfunTrading() {
     error,
     createCoin,
     buyCoinWithSol,
-    sellCoin,
     setCurrentToken,
     clearError
   } = useGemsfunActions();
@@ -25,7 +24,6 @@ export default function GemsfunTrading() {
   const [tokenSymbol, setTokenSymbol] = useState('');
   const [metadataUri, setMetadataUri] = useState('');
   const [solAmount, setSolAmount] = useState('0.01');
-  const [tokenAmount, setTokenAmount] = useState('1000');
   const [manualMint, setManualMint] = useState('');
   const [manualCreator, setManualCreator] = useState('');
 
@@ -83,26 +81,6 @@ export default function GemsfunTrading() {
       alert(`Tokens bought successfully!\nTx: ${signature}`);
     } catch (err) {
       console.error('Buy coin error:', err);
-    }
-  };
-
-  const handleSellCoin = async () => {
-    if (!tokenAmount || parseFloat(tokenAmount) <= 0) {
-      alert('Please enter a valid token amount');
-      return;
-    }
-
-    try {
-      const { BN } = await import('bn.js');
-      const signature = await sellCoin({
-        tokenAmount: new BN(Math.floor(parseFloat(tokenAmount) * 1e6)), // Convert to token units
-        slippage: 500, // 5% slippage
-        marketCapIndex: 1
-      });
-      
-      alert(`Tokens sold successfully!\nTx: ${signature}`);
-    } catch (err) {
-      console.error('Sell coin error:', err);
     }
   };
 
@@ -254,64 +232,33 @@ export default function GemsfunTrading() {
         </button>
       </div>
 
-      {/* Trading Section */}
+      {/* Buy Section */}
       {currentMint && (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Buy Section */}
-          <div className="bg-white border border-gray-200 rounded-lg p-6">
-            <h2 className="text-xl font-semibold mb-4 text-green-800">Buy Tokens</h2>
-            <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                SOL Amount
-              </label>
-              <input
-                type="number"
-                step="0.001"
-                value={solAmount}
-                onChange={(e) => setSolAmount(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
-                placeholder="0.01"
-              />
-            </div>
-            <button
-              onClick={handleBuyCoin}
-              disabled={isLoading || !client}
-              className="w-full bg-green-600 text-white px-6 py-2 rounded-md hover:bg-green-700 disabled:bg-gray-400 disabled:cursor-not-allowed"
-            >
-              Buy Tokens
-            </button>
-            <p className="text-xs text-gray-500 mt-2">
-              Slippage: 5% | Market Cap: 42k SOL
-            </p>
+        <div className="bg-white border border-gray-200 rounded-lg p-6">
+          <h2 className="text-xl font-semibold mb-4 text-green-800">Buy Tokens</h2>
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              SOL Amount
+            </label>
+            <input
+              type="number"
+              step="0.001"
+              value={solAmount}
+              onChange={(e) => setSolAmount(e.target.value)}
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+              placeholder="0.01"
+            />
           </div>
-
-          {/* Sell Section */}
-          <div className="bg-white border border-gray-200 rounded-lg p-6">
-            <h2 className="text-xl font-semibold mb-4 text-red-800">Sell Tokens</h2>
-            <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Token Amount
-              </label>
-              <input
-                type="number"
-                step="0.001"
-                value={tokenAmount}
-                onChange={(e) => setTokenAmount(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
-                placeholder="1000"
-              />
-            </div>
-            <button
-              onClick={handleSellCoin}
-              disabled={isLoading || !client}
-              className="w-full bg-red-600 text-white px-6 py-2 rounded-md hover:bg-red-700 disabled:bg-gray-400 disabled:cursor-not-allowed"
-            >
-              Sell Tokens
-            </button>
-            <p className="text-xs text-gray-500 mt-2">
-              Slippage: 5% | Token decimals: 6
-            </p>
-          </div>
+          <button
+            onClick={handleBuyCoin}
+            disabled={isLoading || !client}
+            className="w-full bg-green-600 text-white px-6 py-2 rounded-md hover:bg-green-700 disabled:bg-gray-400 disabled:cursor-not-allowed"
+          >
+            Buy Tokens
+          </button>
+          <p className="text-xs text-gray-500 mt-2">
+            Slippage: 5% | Market Cap: 42k SOL
+          </p>
         </div>
       )}
 
@@ -319,10 +266,9 @@ export default function GemsfunTrading() {
       <div className="bg-gray-50 border border-gray-200 rounded-lg p-6">
         <h3 className="text-lg font-semibold text-gray-800 mb-3">How to Use</h3>
         <div className="space-y-2 text-sm text-gray-700">
-          <p><strong>1. Create Token:</strong> Fill in token details and click &quot;Create Token&quot;</p>
-          <p><strong>2. Buy Tokens:</strong> Enter SOL amount and click &quot;Buy Tokens&quot;</p>
-          <p><strong>3. Sell Tokens:</strong> Enter token amount and click &quot;Sell Tokens&quot;</p>
-          <p><strong>4. Manual Selection:</strong> Enter existing token mint and creator addresses</p>
+          <p><strong>1. Create Token:</strong> Fill in token details and click "Create Token"</p>
+          <p><strong>2. Buy Tokens:</strong> Enter SOL amount and click "Buy Tokens"</p>
+          <p><strong>3. Manual Selection:</strong> Enter existing token mint and creator addresses</p>
         </div>
         <div className="mt-4 p-3 bg-yellow-50 border border-yellow-200 rounded">
           <p className="text-xs text-yellow-800">
