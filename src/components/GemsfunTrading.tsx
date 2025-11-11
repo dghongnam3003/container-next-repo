@@ -131,7 +131,7 @@ export default function GemsfunTrading() {
         </div>
       )}
 
-      {/* Create Token Section */}
+      {/* New Token Section */}
       <div className="bg-white border border-gray-200 rounded-lg p-6">
         <h2 className="text-xl font-semibold mb-4 text-gray-800">Create New Token</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
@@ -177,7 +177,7 @@ export default function GemsfunTrading() {
           disabled={isLoading || !client}
           className="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed"
         >
-          Create Token
+          New Token
         </button>
       </div>
 
@@ -266,7 +266,7 @@ export default function GemsfunTrading() {
       <div className="bg-gray-50 border border-gray-200 rounded-lg p-6">
         <h3 className="text-lg font-semibold text-gray-800 mb-3">How to Use</h3>
         <div className="space-y-2 text-sm text-gray-700">
-          <p><strong>1. Create Token:</strong> Fill in token details and click "Create Token"</p>
+          <p><strong>1. New Token:</strong> Fill in token details and click "New Token"</p>
           <p><strong>2. Buy Tokens:</strong> Enter SOL amount and click "Buy Tokens"</p>
           <p><strong>3. Manual Selection:</strong> Enter existing token mint and creator addresses</p>
         </div>
