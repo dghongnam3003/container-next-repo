@@ -175,7 +175,7 @@ export default function GemsfunTrading() {
         <button
           onClick={handleCreateCoin}
           disabled={isLoading || !client}
-          className="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed"
+          className="bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-600 disabled:bg-gray-400 disabled:cursor-not-allowed font-semibold shadow-md"
         >
           Create Token
         </button>
