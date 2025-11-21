@@ -175,9 +175,9 @@ export default function GemsfunTrading() {
         <button
           onClick={handleCreateCoin}
           disabled={isLoading || !client}
-          className="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed"
+          className="bg-yellow-500 text-white px-6 py-2 rounded-md hover:bg-yellow-600 disabled:bg-gray-400 disabled:cursor-not-allowed"
         >
-          Create Token
+          Hello
         </button>
       </div>
 
@@ -266,7 +266,7 @@ export default function GemsfunTrading() {
       <div className="bg-gray-50 border border-gray-200 rounded-lg p-6">
         <h3 className="text-lg font-semibold text-gray-800 mb-3">How to Use</h3>
         <div className="space-y-2 text-sm text-gray-700">
-          <p><strong>1. Create Token:</strong> Fill in token details and click "Create Token"</p>
+          <p><strong>1. Create Token:</strong> Fill in token details and click "Hello"</p>
           <p><strong>2. Buy Tokens:</strong> Enter SOL amount and click "Buy Tokens"</p>
           <p><strong>3. Manual Selection:</strong> Enter existing token mint and creator addresses</p>
         </div>
