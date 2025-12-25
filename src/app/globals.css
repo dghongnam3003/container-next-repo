@@ -28,16 +28,14 @@ body {
 
 /* Auto-added button styling */
 .btn, button, .button, .deploy-button, .docs-button {
-  background-color: #dc3545;
-  background-color: #dc3545;
-  background-color: #dc3545;
-  background-color: #dc3545;
-  background-color: #dc3545;
-  background-color: #dc3545;
-  background-color: #dc3545;
-  color: #000 !important;
+  background-color: #2563eb;
+  color: #ffffff !important;
   border: none;
   padding: 10px 20px;
   border-radius: 4px;
   cursor: pointer;
+}
+
+.btn:hover, button:hover, .button:hover, .deploy-button:hover, .docs-button:hover {
+  background-color: #1d4ed8;
 }
