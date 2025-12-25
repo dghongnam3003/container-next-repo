@@ -1,0 +1,33 @@
+"use client";
+
+import React, { useState } from 'react';
+import { useAuth } from '@/context/AuthContext';
+
+interface AuthFormProps {
+  onSuccess?: () => void;
+}
+
+export default function AuthForm({ onSuccess }: AuthFormProps) {
+  const [isLogin, setIsLogin] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
+  const { login, register } = useAuth();
+
+  // Form state
+  const [formData, setFormData] = useState({
+    username: '',
+    email: '',
+    password: '',
+    confirmPassword: ''
+  });
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();\n    setError('');\n    setIsLoading(true);\n\n    try {\n      if (isLogin) {\n        await login({\n          email: formData.email,\n          password: formData.password\n        });\n      } else {\n        await register({\n          username: formData.username,\n          email: formData.email,\n          password: formData.password,\n          confirmPassword: formData.confirmPassword\n        });\n      }\n      \n      // Clear form\n      setFormData({\n        username: '',\n        email: '',\n        password: '',\n        confirmPassword: ''\n      });\n      \n      onSuccess?.();\n    } catch (err) {\n      setError(err instanceof Error ? err.message : 'An error occurred');\n    } finally {\n      setIsLoading(false);\n    }\n  };\n\n  const toggleMode = () => {\n    setIsLogin(!isLogin);\n    setError('');\n    setFormData({\n      username: '',\n      email: '',\n      password: '',\n      confirmPassword: ''\n    });\n  };\n\n  return (\n    <div className=\"w-full max-w-md mx-auto\">\n      <div className=\"bg-white shadow-xl rounded-lg px-8 py-10\">\n        <div className=\"mb-6\">\n          <h2 className=\"text-3xl font-bold text-center text-gray-900\">\n            {isLogin ? 'Welcome Back' : 'Create Account'}\n          </h2>\n          <p className=\"text-center text-gray-600 mt-2\">\n            {isLogin\n              ? 'Please sign in to access Gems.fun trading'\n              : 'Join Gems.fun to start trading tokens'\n            }\n          </p>\n        </div>\n\n        {error && (\n          <div className=\"mb-4 p-3 bg-red-50 border border-red-200 rounded-lg\">\n            <p className=\"text-red-700 text-sm\">{error}</p>\n          </div>\n        )}\n\n        <form onSubmit={handleSubmit} className=\"space-y-4\">\n          {!isLogin && (\n            <div>\n              <label htmlFor=\"username\" className=\"block text-sm font-medium text-gray-700 mb-1\">\n                Username\n              </label>\n              <input\n                type=\"text\"\n                id=\"username\"\n                name=\"username\"\n                value={formData.username}\n                onChange={handleInputChange}\n                className=\"w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent\"\n                placeholder=\"Choose a username\"\n                required={!isLogin}\n              />\n            </div>\n          )}\n\n          <div>\n            <label htmlFor=\"email\" className=\"block text-sm font-medium text-gray-700 mb-1\">\n              Email\n            </label>\n            <input\n              type=\"email\"\n              id=\"email\"\n              name=\"email\"\n              value={formData.email}\n              onChange={handleInputChange}\n              className=\"w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent\"\n              placeholder=\"Enter your email\"\n              required\n            />\n          </div>\n\n          <div>\n            <label htmlFor=\"password\" className=\"block text-sm font-medium text-gray-700 mb-1\">\n              Password\n            </label>\n            <input\n              type=\"password\"\n              id=\"password\"\n              name=\"password\"\n              value={formData.password}\n              onChange={handleInputChange}\n              className=\"w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent\"\n              placeholder=\"Enter your password\"\n              required\n              minLength={6}\n            />\n          </div>\n\n          {!isLogin && (\n            <div>\n              <label htmlFor=\"confirmPassword\" className=\"block text-sm font-medium text-gray-700 mb-1\">\n                Confirm Password\n              </label>\n              <input\n                type=\"password\"\n                id=\"confirmPassword\"\n                name=\"confirmPassword\"\n                value={formData.confirmPassword}\n                onChange={handleInputChange}\n                className=\"w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent\"\n                placeholder=\"Confirm your password\"\n                required={!isLogin}\n                minLength={6}\n              />\n            </div>\n          )}\n\n          <button\n            type=\"submit\"\n            disabled={isLoading}\n            className=\"w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors\"\n          >\n            {isLoading\n              ? (isLogin ? 'Signing In...' : 'Creating Account...')\n              : (isLogin ? 'Sign In' : 'Create Account')\n            }\n          </button>\n        </form>\n\n        <div className=\"mt-6 text-center\">\n          <p className=\"text-gray-600\">\n            {isLogin ? \"Don't have an account?\" : \"Already have an account?\"}\n            <button\n              onClick={toggleMode}\n              className=\"ml-2 text-blue-600 hover:text-blue-800 font-medium\"\n            >\n              {isLogin ? 'Sign up' : 'Sign in'}\n            </button>\n          </p>\n        </div>\n\n        <div className=\"mt-6 p-3 bg-gray-50 rounded-lg\">\n          <p className=\"text-xs text-gray-600 text-center\">\n            🔒 Your credentials are stored locally for demo purposes.\n            <br />\n            In production, use proper authentication services.\n          </p>\n        </div>\n      </div>\n    </div>\n  );\n}
