@@ -175,7 +175,10 @@ export default function GemsfunTrading() {
         <button
           onClick={handleCreateCoin}
           disabled={isLoading || !client}
-          className="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed"
+          className="bg-mint-500 text-white px-6 py-2 rounded-md hover:bg-mint-600 disabled:bg-gray-400 disabled:cursor-not-allowed"
+          style={{backgroundColor: '#98FF98', border: 'none'}}
+          onMouseEnter={(e) => e.target.style.backgroundColor = '#7FE87F'}
+          onMouseLeave={(e) => e.target.style.backgroundColor = '#98FF98'}
         >
           Create Token
         </button>
